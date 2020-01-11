@@ -1,0 +1,60 @@
+version: '3.6'
+
+services:
+  sms-api-web:
+    build: .
+    stdin_open: true
+    tty: true
+    environment:
+      - SECRET_KEY_BASE=838d32f2bece128979af6d0a3c406a4f39c5ff3a85f900bf17886081148fc22e262b4929ce7475324088bde8b101bad8f0d5579c8feed4e3a9d232402c625340
+      - RAILS_SERVE_STATIC_FILES=enabled
+    volumes:
+      - ./sms-management:/app
+    working_dir: /app
+    command: bash -c "rake assets:precompile && puma"
+    networks:
+      - default
+    ports:
+      - 3000:3000
+    depends_on:
+      - sms-api-db
+  sms-api-db:
+    image: mysql:5.7
+    restart: always
+    ports:
+      - "33406:3306"
+    networks:
+      - default
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./sms-management/mysql-data:/var/lib/mysql
+
+  # ussd-redis:
+  #   image: redis
+  #   restart: always
+  #   ports:
+  #     - "6379:6379"
+  #   networks:
+  #     - default
+  #   volumes:
+  #     - redis:/data
+
+  # ussd-worker:
+  #   build: .
+  #   command: bundle exec sidekiq -C ./config/sidekiq.yml
+  #   working_dir: /app
+  #   networks:
+  #     - default
+  #   volumes:
+  #     - ./:/app
+  #   depends_on:
+  #     - ussd-db
+  #     - ussd-redis
+volumes:
+  mysql-data:
+    driver: local
+  redis:
+    driver: local
+  app-gems:
+    driver: local

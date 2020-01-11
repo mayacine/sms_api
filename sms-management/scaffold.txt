@@ -1,0 +1,8 @@
+rails g scaffold account title sms_balance:integer sms_sended:integer
+
+rails g scaffold sms_message code title:text body:text sended_at:datetime sender_code status:integer
+
+rails g scaffold sms_sender first_name last_name code account:references
+
+rails g scaffold account_manager name account:references
+
