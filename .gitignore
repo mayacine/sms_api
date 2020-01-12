@@ -29,7 +29,7 @@
 
 ./sms-management/.DS_Store
 ./sms-management/.ssh/*
-./sms-management/mysql-data/
+./sms-management/mysql-data/*
 
 # dotenv
 .env.*
