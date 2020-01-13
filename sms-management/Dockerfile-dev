@@ -30,5 +30,5 @@ ADD . .
 RUN rails credentials:edit
 #RUN rails g rails_admin:install
 #RUN bundle exec rake SECRET_KEY_BASE=838d32f2bece128979af6d0a3c406a4f39c5ff3a85f900bf17886081148fc22e262b4929ce7475324088bde8b101bad8f0d5579c8feed4e3a9d232402c625340 assets:precompile
-RUN rails webpacker:install
+#RUN rails webpacker:install
 CMD bundle exec rails server -b 0.0.0.0
